@@ -1,5 +1,8 @@
 import 'package:bondu/utils/app-colors.dart';
+import 'package:bondu/utils/nav_utils.dart';
 import 'package:flutter/material.dart';
+
+import '../login/login_email.dart';
 
 class SigninWelcome extends StatefulWidget {
   const SigninWelcome({Key? key}) : super(key: key);
@@ -94,26 +97,31 @@ class _SigninWelcomeState extends State<SigninWelcome> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-               width: MediaQuery.of(context).size.width/2+100,
-                height: 30,
+              InkWell(
+                onTap: (){
+                  NavUtils.push(context, LoginWithEmail());
+                },
+                child: Container(
+                 width: MediaQuery.of(context).size.width/2+100,
+                  height: 30,
 
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  color: AppColors.bandarkGrey,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 2,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),
-                  ],
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    color: AppColors.bandarkGrey,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 2,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+
+                  ),
+
+                  child: Center(child: Text("Email",style: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),)),
 
                 ),
-
-                child: Center(child: Text("Email",style: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),)),
-
               ),
             ],
           ),

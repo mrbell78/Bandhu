@@ -1,6 +1,9 @@
+import 'package:bondu/settings/settings.dart';
 import 'package:bondu/signup/signup_email.dart';
 import 'package:flutter/material.dart';
 
+import 'chat/chat_with_bandhu.dart';
+import 'custommer_care/CustommerSupport.dart';
 import 'home/nav_root.dart';
 import 'home/profile.dart';
 import 'home/signin_welcome.dart';
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Poppins",
         primarySwatch: Colors.blue,
       ),
-      home: NavigationRoot(),
+      home: SplashScreen(),
     );
   }
 }

@@ -64,6 +64,11 @@ class AppColors {
   static var banLightYellow = Color(0xffFCF3CA);
   static var banLightCyne = Color(0xffC4EADA);
   static var banmidGray = Color(0xffF1E9E3);
+  static var banchatBackground = Color(0xffDC4712);
+  static var banSettingsBackgrund1 = Color(0xffEF7B7B);
+  static var banSettingsBackgrund2 = Color(0xffF6CE59);
+  static var banSettingsBackgrund3 = Color(0xffDC4712);
+  static var banSplashBackground = Color(0xffFD5802);
 
 
 }

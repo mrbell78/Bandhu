@@ -1,5 +1,8 @@
 import 'package:bondu/utils/app-colors.dart';
+import 'package:bondu/utils/nav_utils.dart';
 import 'package:flutter/material.dart';
+
+import '../home/nav_root.dart';
 
 class SignupWithPhoneNumber extends StatefulWidget {
   const SignupWithPhoneNumber({Key? key}) : super(key: key);
@@ -314,35 +317,46 @@ class _SignupWithPhoneNumberState extends State<SignupWithPhoneNumber> {
                 SizedBox(height: 30,),
 
                 Container(
+                  width: MediaQuery.of(context).size.width/2+150,
                   margin: EdgeInsets.only(left: 20,right: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                          height: 35,
-                          width: MediaQuery.of(context).size.width/2+150,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                      InkWell(
+                        onTap:(){
+                          NavUtils.push(context, NavigationRoot());
+                        },
+                        child: Container(
+                            height: 35,
+                            width: MediaQuery.of(context).size.width/2+150,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(15)),
 
-                            color: AppColors.banDarkOrange,
-                          ),
-                          child:Center(child: Text("Login",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),))
+                              color: AppColors.banDarkOrange,
+                            ),
+                            child:Center(child: Text("Login",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),))
 
+                        ),
                       ),
                       SizedBox(height: 20,),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                              height: 35,
-                              width: MediaQuery.of(context).size.width/2+150,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(15)),
-                                color: AppColors.banDarkGreen,),
-                              child:Center(child: Text("Login With Email",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),))
+                          InkWell(
+                            onTap:(){
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                                height: 35,
+                                width: MediaQuery.of(context).size.width/2+150,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  color: AppColors.banDarkGreen,),
+                                child:Center(child: Text("Login With Email",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),))
 
+                            ),
                           )
                         ],
                       ),

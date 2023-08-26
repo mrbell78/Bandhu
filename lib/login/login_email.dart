@@ -1,5 +1,10 @@
 import 'package:bondu/utils/app-colors.dart';
+import 'package:bondu/utils/nav_utils.dart';
 import 'package:flutter/material.dart';
+
+import '../home/nav_root.dart';
+import '../signup/signup_email.dart';
+import '../signup/signup_phone_number.dart';
 
 class LoginWithEmail extends StatefulWidget {
   const LoginWithEmail({Key? key}) : super(key: key);
@@ -193,19 +198,25 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                 SizedBox(height: 30,),
 
                 Container(
+                  width: MediaQuery.of(context).size.width/2+150,
                   margin: EdgeInsets.only(left: 20,right: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Container(
-                            height: 35,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              color: AppColors.banDarkOrange,),
-                            child:Center(child: Text("Login",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),))
+                        child: InkWell(
+                          onTap:(){
+                            NavUtils.push(context, NavigationRoot());
+                          },
+                          child: Container(
+                              height: 35,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                color: AppColors.banDarkOrange,),
+                              child:Center(child: Text("Login",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),))
 
+                          ),
                         ),
                       ),
 
@@ -214,14 +225,19 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                       Expanded(
                         child: Column(
                           children: [
-                            Container(
-                                height: 35,
+                            InkWell(
+                              onTap:(){
+                                NavUtils.push(context, SignupWithEmail());
+                              },
+                              child: Container(
+                                  height: 35,
 
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                                  color: AppColors.banDarkGreen,),
-                                child:Center(child: Text("Sign Up",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),))
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                                    color: AppColors.banDarkGreen,),
+                                  child:Center(child: Text("Sign Up",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),))
 
+                              ),
                             ),
                             SizedBox(height: 8,),
                             Text("Don't Have Account ?",style: TextStyle(color: AppColors.banblack,fontSize: 10,fontWeight: FontWeight.w400),)
@@ -258,32 +274,37 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width/2+100,
-                      height: 30,
+                    InkWell(
+                      onTap: (){
+                        NavUtils.push(context, SignupWithPhoneNumber());
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width/2+100,
+                        height: 30,
 
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: AppColors.banLightYellow,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 2,
-                            offset: Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          color: AppColors.banLightYellow,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 2,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+
+                        ),
+
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(width: 10,),
+                            Text("Phone Number",style: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),),
+                          ],
+                        ),
 
                       ),
-
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(width: 10,),
-                          Text("Phone Number",style: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),),
-                        ],
-                      ),
-
                     ),
                   ],
                 ),

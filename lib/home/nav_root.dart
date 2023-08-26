@@ -2,6 +2,10 @@ import 'package:bondu/home/profile.dart';
 import 'package:bondu/utils/app-colors.dart';
 import 'package:flutter/material.dart';
 
+import '../chat/chat_with_bandhu.dart';
+import '../custommer_care/CustommerSupport.dart';
+import '../settings/settings.dart';
+
 class NavigationRoot extends StatefulWidget {
   const NavigationRoot({Key? key}) : super(key: key);
 
@@ -14,9 +18,9 @@ class _NavigationRootState extends State<NavigationRoot> {
 
   final pages = [
    const Center(child:  ProfilePage()),
-   const Center(child:  Text("Page 2")),
-   const Center(child:  Text("Page 3")),
-   const Center(child:  Text("Page 4")),
+   const Center(child:  CustommerSupport()),
+   const Center(child:  ChatWithBandhu()),
+   const Center(child:  Settings()),
 
 
   ];

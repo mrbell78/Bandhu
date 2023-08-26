@@ -314,6 +314,7 @@ class _SignupWithEmailState extends State<SignupWithEmail> {
                 SizedBox(height: 30,),
 
                 Container(
+                  width: MediaQuery.of(context).size.width/2+150,
                   margin: EdgeInsets.only(left: 20,right: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -337,13 +338,18 @@ class _SignupWithEmailState extends State<SignupWithEmail> {
                       ),
                       SizedBox(width: 20,),
                       Expanded(
-                        child: Container(
-                            height: 35,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                                color: AppColors.banDarkGreen,),
-                            child:Center(child: Text("Login",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),))
+                        child: InkWell(
+                          onTap: (){
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                              height: 35,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  color: AppColors.banDarkGreen,),
+                              child:Center(child: Text("Login",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),))
 
+                          ),
                         ),
                       ),
                     ],
