@@ -1,6 +1,7 @@
 import 'package:bondu/utils/app-colors.dart';
 import 'package:bondu/utils/nav_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../home/nav_root.dart';
 import '../signup/signup_email.dart';
@@ -14,6 +15,9 @@ class LoginWithEmail extends StatefulWidget {
 }
 
 class _LoginWithEmailState extends State<LoginWithEmail> {
+
+  TextEditingController nameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,6 +110,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                       ),
 
                       child:  TextField(
+                        controller: nameController,
                         textAlignVertical: TextAlignVertical.center,
                         style: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),
                         decoration: InputDecoration(
@@ -207,6 +212,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                       Expanded(
                         child: InkWell(
                           onTap:(){
+                            addStringToSF(nameController.text.trim());
                             NavUtils.push(context, NavigationRoot());
                           },
                           child: Container(
@@ -227,6 +233,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                           children: [
                             InkWell(
                               onTap:(){
+
                                 NavUtils.push(context, SignupWithEmail());
                               },
                               child: Container(
@@ -421,5 +428,11 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
         ],
       ),
     );
+  }
+
+  addStringToSF(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print("user name during login ${name}");
+    prefs.setString('nameKey', name);
   }
 }

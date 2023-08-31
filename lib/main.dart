@@ -1,7 +1,9 @@
 import 'package:bondu/settings/settings.dart';
 import 'package:bondu/signup/signup_email.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'chat/chat_controller.dart';
 import 'chat/chat_with_bandhu.dart';
 import 'custommer_care/CustommerSupport.dart';
 import 'home/nav_root.dart';
@@ -21,14 +23,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: "Poppins",
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ChatController()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: "Poppins",
+          primarySwatch: Colors.blue,
+        ),
+        home: SplashScreen(),
       ),
-      home: SplashScreen(),
     );
   }
 }
