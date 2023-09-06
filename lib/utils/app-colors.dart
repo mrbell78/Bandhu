@@ -69,6 +69,8 @@ class AppColors {
   static var banSettingsBackgrund2 = Color(0xffF6CE59);
   static var banSettingsBackgrund3 = Color(0xffDC4712);
   static var banSplashBackground = Color(0xffFD5802);
+  static var banaAboutColor= Color(0xffEE712B);
+  static var banaProfileColor= Color(0xff2E8FC6);
 
 
 }

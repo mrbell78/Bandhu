@@ -8,15 +8,16 @@ import '../home/nav_root.dart';
 import '../signup/login_controller.dart';
 import '../signup/signup_email.dart';
 import '../signup/signup_phone_number.dart';
+import 'login_email.dart';
 
-class LoginWithEmail extends StatefulWidget {
-  const LoginWithEmail({Key? key}) : super(key: key);
+class LoginAsGuest extends StatefulWidget {
+  const LoginAsGuest({Key? key}) : super(key: key);
 
   @override
-  _LoginWithEmailState createState() => _LoginWithEmailState();
+  _LoginAsGuestState createState() => _LoginAsGuestState();
 }
 
-class _LoginWithEmailState extends State<LoginWithEmail> {
+class _LoginAsGuestState extends State<LoginAsGuest> {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -130,43 +131,43 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 15,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width/2+150,
-                            height: 35,
-                            decoration: BoxDecoration(
-
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              color: AppColors.bandarkGrey,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 2,
-                                  offset: Offset(0, 3), // changes position of shadow
-                                ),
-                              ],
-
-                            ),
-
-                            child:  TextField(
-                              textAlignVertical: TextAlignVertical.center,
-                              controller: emailController,
-                              style: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),
-                              decoration: InputDecoration(
-                                  hintStyle: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),
-                                  border: InputBorder.none,
-                                  hintText: 'Email',
-                                  contentPadding: EdgeInsets.only(bottom: 9,left: 10)
-                              ),
-                            ),
-
-                          ),
-                        ],
-                      ),
+                      // SizedBox(height: 15,),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Container(
+                      //       width: MediaQuery.of(context).size.width/2+150,
+                      //       height: 35,
+                      //       decoration: BoxDecoration(
+                      //
+                      //         borderRadius: BorderRadius.all(Radius.circular(15)),
+                      //         color: AppColors.bandarkGrey,
+                      //         boxShadow: [
+                      //           BoxShadow(
+                      //             color: Colors.grey.withOpacity(0.5),
+                      //             spreadRadius: 2,
+                      //             blurRadius: 2,
+                      //             offset: Offset(0, 3), // changes position of shadow
+                      //           ),
+                      //         ],
+                      //
+                      //       ),
+                      //
+                      //       child:  TextField(
+                      //         textAlignVertical: TextAlignVertical.center,
+                      //         controller: emailController,
+                      //         style: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),
+                      //         decoration: InputDecoration(
+                      //             hintStyle: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),
+                      //             border: InputBorder.none,
+                      //             hintText: 'Email',
+                      //             contentPadding: EdgeInsets.only(bottom: 9,left: 10)
+                      //         ),
+                      //       ),
+                      //
+                      //     ),
+                      //   ],
+                      // ),
 
                       SizedBox(height: 15,),
                       Row(
@@ -231,21 +232,21 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(15)),
                                       color: AppColors.banDarkOrange,),
-                                    child:Center(child: Text("Login",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),))
+                                    child:Center(child: Text("Enter as Guest",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),))
 
                                 ),
                               ),
                             ),
 
-                            // SizedBox(width: 20,),
-                            //
+                            SizedBox(width: 20,),
+
                             // Expanded(
                             //   child: Column(
                             //     children: [
                             //       InkWell(
                             //         onTap:(){
                             //
-                            //           NavUtils.push(context, SignupWithEmail());
+                            //           NavUtils.push(context, LoginWithEmail());
                             //         },
                             //         child: Container(
                             //             height: 35,
@@ -268,25 +269,25 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
 
 
                       SizedBox(height: 15,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-
-                          Text("OR",style: TextStyle(color: AppColors.banblack,fontSize: 16,fontWeight: FontWeight.w600),),
-
-
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //
+                      //     Text("OR",style: TextStyle(color: AppColors.banblack,fontSize: 16,fontWeight: FontWeight.w600),),
+                      //
+                      //
+                      //   ],
+                      // ),
 
                       SizedBox(height: 20,),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Login",style: TextStyle(color: AppColors.banOrange,fontSize: 16,fontWeight: FontWeight.w600),),
-
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Text("Login",style: TextStyle(color: AppColors.banOrange,fontSize: 16,fontWeight: FontWeight.w600),),
+                      //
+                      //   ],
+                      // ),
 
                       // SizedBox(height: 15,),
                       // Row(
@@ -327,39 +328,44 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                       //   ],
                       // ),
 
-                      SizedBox(height: 15,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width/2+100,
-                            height: 30,
-
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              color: AppColors.banLightCyne,
-                              // boxShadow: [
-                              //   BoxShadow(
-                              //     color: Colors.grey.withOpacity(0.5),
-                              //     spreadRadius: 2,
-                              //     blurRadius: 2,
-                              //     offset: Offset(0, 3), // changes position of shadow
-                              //   ),
-                              // ],
-
-                            ),
-
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(width: 10,),
-                                Text("As Guest",style: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),),
-                              ],
-                            ),
-
-                          ),
-                        ],
-                      ),
+                      // SizedBox(height: 15,),
+                      // GestureDetector(
+                      //   onTap: (){
+                      //     NavUtils.push(context, LoginAsGuest());
+                      //   },
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       Container(
+                      //         width: MediaQuery.of(context).size.width/2+100,
+                      //         height: 30,
+                      //
+                      //         decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.all(Radius.circular(15)),
+                      //           color: AppColors.banLightCyne,
+                      //           // boxShadow: [
+                      //           //   BoxShadow(
+                      //           //     color: Colors.grey.withOpacity(0.5),
+                      //           //     spreadRadius: 2,
+                      //           //     blurRadius: 2,
+                      //           //     offset: Offset(0, 3), // changes position of shadow
+                      //           //   ),
+                      //           // ],
+                      //
+                      //         ),
+                      //
+                      //         child: Row(
+                      //           crossAxisAlignment: CrossAxisAlignment.center,
+                      //           children: [
+                      //             SizedBox(width: 10,),
+                      //             Text("As Guest",style: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),),
+                      //           ],
+                      //         ),
+                      //
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       //
                       // SizedBox(height: 15,),
                       // Row(

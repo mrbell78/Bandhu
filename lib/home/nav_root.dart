@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../chat/chat_with_bandhu.dart';
 import '../custommer_care/CustommerSupport.dart';
+import '../main_service/Service.dart';
 import '../settings/settings.dart';
 
 class NavigationRoot extends StatefulWidget {
@@ -17,7 +18,7 @@ class _NavigationRootState extends State<NavigationRoot> {
   int pageIndex = 0;
 
   final pages = [
-   const Center(child:  ProfilePage()),
+   const Center(child:  Services()),
    const Center(child:  CustommerSupport()),
    const Center(child:  ChatWithBandhu()),
    const Center(child:  Settings()),
@@ -63,8 +64,8 @@ class _NavigationRootState extends State<NavigationRoot> {
                 });
               },
               icon: pageIndex == 0
-                  ? Image.asset("assets/icons/ic-selected-profile.png",)
-                  : Image.asset("assets/icons/ic-profile.png",)
+                  ? Image.asset("assets/icons/ic-home-active.png",)
+                  : Image.asset("assets/icons/ic-home.png",)
             ),
             IconButton(
               enableFeedback: false,

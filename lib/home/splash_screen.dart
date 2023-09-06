@@ -1,8 +1,16 @@
+import 'dart:convert';
+
 import 'package:bondu/home/signin_welcome.dart';
 import 'package:bondu/utils/app-colors.dart';
 import 'package:bondu/utils/nav_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui' show lerpDouble;
+
+import '../login/login_email.dart';
+import '../login/loginas_withoutReg.dart';
+import '../signup/model/signinup_response.dart';
+import 'nav_root.dart';
 
 class SplashScreen extends StatefulWidget {
 
@@ -24,6 +32,24 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   double _endRadius = 100.0;
   double _currentRadius = 20.0;
   double _progress = 0.0;
+
+  CustommerLogin? custommerLogin;
+  Future<bool> getUserData()async{
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String loginData = (prefs.getString('logininfo') ?? "") ;
+
+    if(loginData!=null && loginData.isNotEmpty){
+
+      print("the data is ${loginData}");
+
+      Map<String,dynamic> mapdata= jsonDecode(loginData);
+      custommerLogin  =CustommerLogin.fromJson(mapdata);
+      return true;
+
+    }else return false;
+
+  }
   
   @override
   void initState() {
@@ -51,7 +77,18 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       _controller.forward();
 
       _controller.addStatusListener((status) {
-        NavUtils.pushReplacement(context, SigninWelcome());
+
+        getUserData().then((value) {
+          if(custommerLogin!=null){
+
+            NavUtils.pushReplacement(context, NavigationRoot());
+          }else{
+            print("the custommerLoign data is ${custommerLogin?.token}");
+            NavUtils.pushReplacement(context, LoginWithyoutReg());
+          }
+        });
+
+
       });
 
     });

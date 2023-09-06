@@ -5,7 +5,9 @@ import 'dart:io';
 
 
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../signup/model/signinup_response.dart';
 import 'api_response.dart';
 
 
@@ -14,19 +16,22 @@ class HttpService {
   //late Dio _dio;
   var _dio;
 
+
+
   Dio _getDio() {
     if (_dio == null) {
       _dio = new Dio();
-
       _dio.interceptors.add(
         InterceptorsWrapper(
-          onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
+          onRequest: (RequestOptions options, RequestInterceptorHandler handler,) async {
 
             options.headers = {
+
               "Accept": "application/json",
-             // "Authorization": "Bearer  $token",
+              //"Authorization": "Bearer  ${custommerLogin?.token}",
             };
 
+            followRedirects:false;
             return handler.next(options); //continue
           },
           onResponse: (Response response, ResponseInterceptorHandler handler) async {
@@ -97,31 +102,35 @@ class HttpService {
      // _getDio().options.headers= {"Content-Type":"multipart/form-data","accept":"*/*",};
 
 
-    _getDio().interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
+    if(token!=null && token!=""){
+      print("token:  $token");
+      _getDio().interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
 
-          options.headers = {
-            "Accept": "application/json",
-            "Authorization": "Bearer  $token",
-          };
+            options.headers = {
+              "Accept": "application/json",
+              "Authorization": "Bearer $token"
+            };
 
-          return handler.next(options); //continue
-        },
-        onResponse: (Response response, ResponseInterceptorHandler handler) async {
-          return handler.next(response); // continue
-        },
-        onError: (DioError e, ErrorInterceptorHandler handler) async {
-          return handler.next(e); //continue
-        },
-      ),
-    );
+            return handler.next(options); //continue
+          },
+          onResponse: (Response response, ResponseInterceptorHandler handler) async {
+            return handler.next(response); // continue
+          },
+          onError: (DioError e, ErrorInterceptorHandler handler) async {
+            return handler.next(e); //continue
+          },
+        ),
+      );
+    }
 
     try {
 
 //
       //String jsondata = jsonEncode(data);
      // print("the body data is ------------${jsondata}");
+      print("request: $data");
 
       Response response = await _getDio().post(
         route,

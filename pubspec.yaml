@@ -47,6 +47,7 @@ dependencies:
   dio: ^4.0.0
   provider: any
   socket_io_client: ^2.0.3+1
+  url_launcher: any
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icons/
+    - assets/images/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

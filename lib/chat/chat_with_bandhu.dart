@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bondu/utils/app-colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -5,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
+import '../signup/model/signinup_response.dart';
 import 'chat_controller.dart';
 import 'model/message_model.dart';
 class ChatWithBandhu extends StatefulWidget {
@@ -79,12 +82,38 @@ class _ChatWithBandhuState extends State<ChatWithBandhu> {
     );
   }
 
+  CustommerLogin? custommerLogin;
+  Future<bool> getUserData()async{
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String loginData = (prefs.getString('logininfo') ?? "") ;
+
+    if(loginData!=null && loginData.isNotEmpty){
+
+      print("the data is ${loginData}");
+
+      Map<String,dynamic> mapdata= jsonDecode(loginData);
+      custommerLogin  =CustommerLogin.fromJson(mapdata);
+      return true;
+
+    }else return false;
+
+  }
+
+
+  @override
+  void dispose() {
+    _socket.dispose();
+    messageController.dispose();
+    super.dispose();
+  }
+
 
 @override
   void initState() {
-  getStringValuesSF().then((value) {
-    userName=value!;
-    print("the user name from sprd is ${userName}");
+  getUserData().then((value) {
+
+    print("the user name from sprd is ${custommerLogin!.data!.name}");
     // _socket = IO.io(
     //   'http://192.168.0.108:3000',
     //   IO.OptionBuilder().setTransports(['websocket']).setQuery(
@@ -92,9 +121,9 @@ class _ChatWithBandhuState extends State<ChatWithBandhu> {
     // );
 
     _socket = IO.io(
-      'http://192.168.0.108:3000',
-      IO.OptionBuilder().setTransports(['websocket']).setQuery(
-          {'username': userName}).build(),
+      'https://bandhuchat.onrender.com:3000',
+      IO.OptionBuilder().setTransports(['websockets']).setQuery(
+          {'username': custommerLogin!.data!.name}).build(),
     );
 
     _connectSocket();
@@ -187,7 +216,7 @@ class _ChatWithBandhuState extends State<ChatWithBandhu> {
 
             Positioned.fill(
               top: 110,
-              bottom: 10,
+
               child: Align(
                 alignment: Alignment.center,
                 child: Column(
@@ -225,30 +254,30 @@ class _ChatWithBandhuState extends State<ChatWithBandhu> {
                                           final message = provider.messages[index];
                                           print("send user is ........${message.senderUsername}");
                                           return Column(
-                                            crossAxisAlignment: message.senderUsername == userName?
+                                            crossAxisAlignment: message.senderUsername == custommerLogin!.data!.name?
                                             CrossAxisAlignment.end:
                                                 CrossAxisAlignment.start,
                                             children: [
                                           Wrap(
-                                          alignment: message.senderUsername == userName
+                                          alignment: message.senderUsername == custommerLogin!.data!.name
                                             ? WrapAlignment.end
                                             : WrapAlignment.start,
                                             children: [
                                               Container(
                                                 decoration: BoxDecoration(
-                                                    color: message.senderUsername == userName
+                                                    color: message.senderUsername == custommerLogin!.data!.name
                                                         ? Theme.of(context).primaryColorLight
                                                         : Colors.white,
                                                     borderRadius: BorderRadius.all(Radius.circular(10))
                                                 ),
-                                                margin: message.senderUsername == userName?
+                                                margin: message.senderUsername == custommerLogin!.data!.name?
                                                 EdgeInsets.only(right:5):
                                                 EdgeInsets.only(left:5),
                                                 padding:EdgeInsets.all(5),
                                                 child: Column(
                                                   mainAxisSize: MainAxisSize.min,
                                                   crossAxisAlignment:
-                                                  message.senderUsername == userName
+                                                  message.senderUsername == custommerLogin!.data!.name
                                                       ? CrossAxisAlignment.end
                                                       : CrossAxisAlignment.start,
                                                   children: [
@@ -274,6 +303,39 @@ class _ChatWithBandhuState extends State<ChatWithBandhu> {
                                   },
                                 ),
                             ),
+
+                            Container(
+                              margin: EdgeInsets.only(left: 10,right: 10),
+                              width: MediaQuery.of(context).size.width,
+                              height: 45,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                color: Colors.white,
+
+                              ),
+                              child: TextField(
+                                controller: messageController,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Type message",
+                                    hintStyle: TextStyle(color: AppColors.banblack.withOpacity(0.5),fontSize: 12,),
+                                    prefixIcon: Image.asset("assets/icons/ic-emuj.png"),
+                                    suffixIcon: IconButton(onPressed: () {
+
+                                      //  print("the text is ${controller.text}");
+                                      //   socket.emit('single_chat_message',{
+                                      //     'message':messageController.text.trim(),
+                                      //     "sender":"rubel"
+                                      //   });
+
+                                      _sendMessage();
+                                    }, icon: Image.asset("assets/icons/ic-message-sent.png"),),
+
+                                    contentPadding: EdgeInsets.only(bottom: 1,top: 8)
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10,),
                           ],
                         ),
                       ),
@@ -283,42 +345,7 @@ class _ChatWithBandhuState extends State<ChatWithBandhu> {
               ),
             ),
 
-            Positioned(
-              bottom: 10,
-              right: 1,
-              left: 1,
-              child: Container(
-                margin: EdgeInsets.only(left: 10,right: 10),
-                width: MediaQuery.of(context).size.width,
-                height: 45,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Colors.white,
 
-                ),
-                child: TextField(
-                  controller: messageController,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Type message",
-                    hintStyle: TextStyle(color: AppColors.banblack.withOpacity(0.5),fontSize: 12,),
-                    prefixIcon: Image.asset("assets/icons/ic-emuj.png"),
-                    suffixIcon: IconButton(onPressed: () {
-
-                    //  print("the text is ${controller.text}");
-                    //   socket.emit('single_chat_message',{
-                    //     'message':messageController.text.trim(),
-                    //     "sender":"rubel"
-                    //   });
-
-                      _sendMessage();
-                    }, icon: Image.asset("assets/icons/ic-message-sent.png"),),
-
-                    contentPadding: EdgeInsets.only(bottom: 1,top: 8)
-                  ),
-                ),
-              ),
-            ),
 
 
 

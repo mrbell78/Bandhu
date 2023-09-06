@@ -1,8 +1,8 @@
 class APICONSTANT{
 
-  static String SERVER = "https://dotzpark.xyz/apptest/api/";
+  static String SERVER = "http://web-bondhu.ekopii.com/";
   static String LOGIN = "login";
-  static String REGISTRATION_POST = "register";
+  static String REGISTRATION_POST = "api/registration";
   static String MY_FILE_LIST = "files";
   static String INVENTORY_LIST = "inventory";
   static String CASE_LIST = "case-details";
@@ -16,4 +16,5 @@ class APICONSTANT{
   static String DELETE_INVENTORY = "inventory-delete";
   static String DELETE_CASE = "case-details-delete";
   static String IMAGEUPLOAD = "upload-inventory-image";
+  static String LOGOUT = "api/logout";
 }
