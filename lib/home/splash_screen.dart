@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   double _currentRadius = 20.0;
   double _progress = 0.0;
 
-  CustommerLogin? custommerLogin;
+  CustommerRegistration? custommerLogin;
   Future<bool> getUserData()async{
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       print("the data is ${loginData}");
 
       Map<String,dynamic> mapdata= jsonDecode(loginData);
-      custommerLogin  =CustommerLogin.fromJson(mapdata);
+      custommerLogin  =CustommerRegistration.fromJson(mapdata);
       return true;
 
     }else return false;
@@ -84,7 +84,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
             NavUtils.pushReplacement(context, NavigationRoot());
           }else{
             print("the custommerLoign data is ${custommerLogin?.token}");
-            NavUtils.pushReplacement(context, LoginWithyoutReg());
+            NavUtils.pushReplacement(context, SigninWelcome());
           }
         });
 

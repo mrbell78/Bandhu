@@ -8,7 +8,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import '../home/signin_welcome.dart';
 import '../login/loginas_withoutReg.dart';
+import '../main_service/Service.dart';
 import '../signup/login_controller.dart';
 import '../signup/model/signinup_response.dart';
 
@@ -33,7 +35,7 @@ class _SettingsState extends State<Settings> {
     return data['message'];
   }
 
-  CustommerLogin? custommerLogin;
+  CustommerRegistration? custommerLogin;
   Future<bool> getUserData()async{
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -44,14 +46,14 @@ class _SettingsState extends State<Settings> {
       print("the data is ${loginData}");
 
       Map<String,dynamic> mapdata= jsonDecode(loginData);
-      custommerLogin  =CustommerLogin.fromJson(mapdata);
+      custommerLogin  =CustommerRegistration.fromJson(mapdata);
       return true;
 
     }else return false;
 
   }
 
-  showAlertDialog(BuildContext context) {
+  showAlertDialog(BuildContext context,provider) {
 
     // set up the buttons
     Widget remindButton = TextButton(
@@ -63,37 +65,48 @@ class _SettingsState extends State<Settings> {
     Widget cancelButton = TextButton(
       child: Text("Yes",style: TextStyle(color: Colors.red),),
       onPressed:  () async{
-        getUserData().then((value)async{
-          print("token is ${custommerLogin?.token}");
-          logout(custommerLogin?.token).then((value) async {
-            if(value=="You are logged out"){
-              Fluttertoast.showToast(
-                  msg: "You are logged out",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 1,
-                  textColor: Colors.white,
-                  backgroundColor: Colors.red,
-                  fontSize: 16.0
-              );
-              Navigator.pop(context);
-              NavUtils.pushReplacement(context, LoginWithyoutReg());
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              // Remove data for the 'counter' key.
-              await prefs.remove('logininfo');
 
-            }else{
-              Fluttertoast.showToast(
-                  msg: "Something went wrong",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 1,
-                  textColor: Colors.white,
-                  fontSize: 16.0
-              );
-            }
-          });
-        } );
+        provider.logOut().then((value) async {
+
+          Fluttertoast.showToast(
+              msg: "You are logged out",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              textColor: Colors.white,
+              backgroundColor: Colors.red,
+              fontSize: 16.0
+          );
+          Navigator.pop(context);
+          NavUtils.pushReplacement(context, SigninWelcome());
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          // Remove data for the 'counter' key.
+          await prefs.remove('logininfo');
+
+        });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        // Remove data for the 'counter' key.
+        await prefs.remove('logininfo');
+        // getUserData().then((value)async{
+        //
+        //
+        //
+        //   logout(custommerLogin?.token).then((value) async {
+        //     if(value=="You are logged out"){
+        //
+        //
+        //     }else{
+        //       Fluttertoast.showToast(
+        //           msg: "Something went wrong",
+        //           toastLength: Toast.LENGTH_SHORT,
+        //           gravity: ToastGravity.CENTER,
+        //           timeInSecForIosWeb: 1,
+        //           textColor: Colors.white,
+        //           fontSize: 16.0
+        //       );
+        //     }
+        //   });
+        // } );
 
       },
     );
@@ -254,67 +267,47 @@ class _SettingsState extends State<Settings> {
 
 
                       Center(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width/2+90,
-                          height: 35,
-                          margin: EdgeInsets.only(left: 20,right: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            color: AppColors.banSettingsBackgrund1,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 2,
-                                blurRadius: 2,
-                                offset: Offset(0, 3), // changes position of shadow
+                        child: GestureDetector(
+                          onTap: (){
+                            NavUtils.push(context, Services());
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width/2+90,
+                            height: 35,
+                            margin: EdgeInsets.only(left: 20,right: 20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(15)),
+                              color: AppColors.banSettingsBackgrund1,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  spreadRadius: 2,
+                                  blurRadius: 2,
+                                  offset: Offset(0, 3), // changes position of shadow
+                                ),
+                              ],
+
+                            ),
+
+                            child:Center(
+                              child: Text("Edit Menu",style: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),
+
                               ),
-                            ],
-
-                          ),
-
-                          child:Center(
-                            child: Text("Notification",style: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),
-
                             ),
                           ),
                         ),),
-                      SizedBox(height: 15,),
 
-                      Center(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width/2+90,
-                          height: 35,
-                          margin: EdgeInsets.only(left: 20,right: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            color: AppColors.banSettingsBackgrund2,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 2,
-                                blurRadius: 2,
-                                offset: Offset(0, 3), // changes position of shadow
-                              ),
-                            ],
-
-                          ),
-
-                          child:Center(
-                            child: Text("FAQ",style: TextStyle(color: AppColors.banblack,fontSize: 14,fontWeight: FontWeight.w400),
-
-                            ),
-                          ),
-                        ),),
                       SizedBox(height: 15,),
 
                       Center(
                         child: GestureDetector(
                           onTap: ()async{
-                          //  await provider.logOut();
+                          // await provider.logOut();
                            // NavUtils.pushReplacement(context, screen)
 
+
                             setState(() {
-                              showAlertDialog(context);
+                              showAlertDialog(context,provider);
                             });
                           },
                           child: Container(

@@ -1,19 +1,19 @@
-class CustommerRegistration {
+class ProfileInfoModel {
   final Data? data;
-  final String? token;
+  final String? message;
 
-  CustommerRegistration({
+  ProfileInfoModel({
     this.data,
-    this.token,
+    this.message,
   });
 
-  CustommerRegistration.fromJson(Map<String, dynamic> json)
+  ProfileInfoModel.fromJson(Map<String, dynamic> json)
       : data = (json['data'] as Map<String,dynamic>?) != null ? Data.fromJson(json['data'] as Map<String,dynamic>) : null,
-        token = json['token'] as String?;
+        message = json['message'] as String?;
 
   Map<String, dynamic> toJson() => {
     'data' : data?.toJson(),
-    'token' : token
+    'message' : message
   };
 }
 
@@ -21,10 +21,10 @@ class Data {
   final int? id;
   final String? name;
   final String? phone;
-  final dynamic gender;
+  final String? gender;
   final String? email;
-  final dynamic password;
   final String? role;
+  final dynamic imageUrl;
   final int? isActive;
   final dynamic createdBy;
   final dynamic updatedBy;
@@ -37,8 +37,8 @@ class Data {
     this.phone,
     this.gender,
     this.email,
-    this.password,
     this.role,
+    this.imageUrl,
     this.isActive,
     this.createdBy,
     this.updatedBy,
@@ -50,10 +50,10 @@ class Data {
       : id = json['id'] as int?,
         name = json['name'] as String?,
         phone = json['phone'] as String?,
-        gender = json['gender'],
+        gender = json['gender'] as String?,
         email = json['email'] as String?,
-        password = json['password'],
         role = json['role'] as String?,
+        imageUrl = json['image_url'],
         isActive = json['is_active'] as int?,
         createdBy = json['created_by'],
         updatedBy = json['updated_by'],
@@ -66,8 +66,8 @@ class Data {
     'phone' : phone,
     'gender' : gender,
     'email' : email,
-    'password' : password,
     'role' : role,
+    'image_url' : imageUrl,
     'is_active' : isActive,
     'created_by' : createdBy,
     'updated_by' : updatedBy,

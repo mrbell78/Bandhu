@@ -220,7 +220,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                                   // addStringToSF(nameController.text.trim());
 
 
-                                  provider.postLogin(nameController.text.trim(),numberController.text.trim(),emailController.text.trim()).then((value) {
+                                  provider.postLogin(emailController.text.trim(),numberController.text.trim()).then((value) {
 
                                     NavUtils.push(context, NavigationRoot());
 

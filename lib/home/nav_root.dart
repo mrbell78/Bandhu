@@ -2,8 +2,10 @@ import 'package:bondu/home/profile.dart';
 import 'package:bondu/utils/app-colors.dart';
 import 'package:flutter/material.dart';
 
+import '../chat/chat_list.dart';
 import '../chat/chat_with_bandhu.dart';
 import '../custommer_care/CustommerSupport.dart';
+import '../dash_board/DashBoardWebView.dart';
 import '../main_service/Service.dart';
 import '../settings/settings.dart';
 
@@ -18,9 +20,9 @@ class _NavigationRootState extends State<NavigationRoot> {
   int pageIndex = 0;
 
   final pages = [
-   const Center(child:  Services()),
+    Center(child:  DashBoardWebview()),
    const Center(child:  CustommerSupport()),
-   const Center(child:  ChatWithBandhu()),
+   const Center(child:  ChatList()),
    const Center(child:  Settings()),
 
 

@@ -221,11 +221,11 @@ class _LoginAsGuestState extends State<LoginAsGuest> {
                                   // addStringToSF(nameController.text.trim());
 
 
-                                  provider.postLogin(nameController.text.trim(),numberController.text.trim(),emailController.text.trim()).then((value) {
-
-                                    NavUtils.push(context, NavigationRoot());
-
-                                  });
+                                  // provider.postLogin(nameController.text.trim(),numberController.text.trim(),emailController.text.trim()).then((value) {
+                                  //
+                                  //   NavUtils.push(context, NavigationRoot());
+                                  //
+                                  // });
                                 },
                                 child: Container(
                                     height: 35,

@@ -1,7 +1,9 @@
+import 'package:bondu/home/profile_controller.dart';
 import 'package:bondu/settings/settings.dart';
 import 'package:bondu/signup/login_controller.dart';
 import 'package:bondu/signup/signup_email.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
 import 'chat/chat_controller.dart';
@@ -23,6 +25,7 @@ import 'signup/signup_phone_number.dart';
 void main() async{
 
   HttpOverrides.global = MyHttpOverrides();
+
   await setupLocator();
   runApp(const MyApp());
 }
@@ -39,6 +42,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => ChatController()),
         ChangeNotifierProvider(create: (context) => CustommerLoginController()),
+        ChangeNotifierProvider(create: (context) => ProfileController()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -48,6 +52,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: SplashScreen(),
+        builder: EasyLoading.init(),
       //  home: LoginAsGuest(),
       ),
     );

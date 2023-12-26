@@ -1,44 +1,63 @@
-class CustommerRegistration {
+class UserLoginModel {
+  final String? message;
   final Data? data;
-  final String? token;
 
-  CustommerRegistration({
+  UserLoginModel({
+    this.message,
     this.data,
-    this.token,
   });
 
-  CustommerRegistration.fromJson(Map<String, dynamic> json)
-      : data = (json['data'] as Map<String,dynamic>?) != null ? Data.fromJson(json['data'] as Map<String,dynamic>) : null,
-        token = json['token'] as String?;
+  UserLoginModel.fromJson(Map<String, dynamic> json)
+      : message = json['message'] as String?,
+        data = (json['data'] as Map<String,dynamic>?) != null ? Data.fromJson(json['data'] as Map<String,dynamic>) : null;
 
   Map<String, dynamic> toJson() => {
-    'data' : data?.toJson(),
-    'token' : token
+    'message' : message,
+    'data' : data?.toJson()
   };
 }
 
 class Data {
+  final String? token;
+  final User? user;
+
+  Data({
+    this.token,
+    this.user,
+  });
+
+  Data.fromJson(Map<String, dynamic> json)
+      : token = json['token'] as String?,
+        user = (json['user'] as Map<String,dynamic>?) != null ? User.fromJson(json['user'] as Map<String,dynamic>) : null;
+
+  Map<String, dynamic> toJson() => {
+    'token' : token,
+    'user' : user?.toJson()
+  };
+}
+
+class User {
   final int? id;
   final String? name;
-  final String? phone;
-  final dynamic gender;
+  final dynamic phone;
+  final String? gender;
   final String? email;
-  final dynamic password;
   final String? role;
+  final dynamic imageUrl;
   final int? isActive;
   final dynamic createdBy;
   final dynamic updatedBy;
   final String? createdAt;
   final String? updatedAt;
 
-  Data({
+  User({
     this.id,
     this.name,
     this.phone,
     this.gender,
     this.email,
-    this.password,
     this.role,
+    this.imageUrl,
     this.isActive,
     this.createdBy,
     this.updatedBy,
@@ -46,14 +65,14 @@ class Data {
     this.updatedAt,
   });
 
-  Data.fromJson(Map<String, dynamic> json)
+  User.fromJson(Map<String, dynamic> json)
       : id = json['id'] as int?,
         name = json['name'] as String?,
-        phone = json['phone'] as String?,
-        gender = json['gender'],
+        phone = json['phone'],
+        gender = json['gender'] as String?,
         email = json['email'] as String?,
-        password = json['password'],
         role = json['role'] as String?,
+        imageUrl = json['image_url'],
         isActive = json['is_active'] as int?,
         createdBy = json['created_by'],
         updatedBy = json['updated_by'],
@@ -66,8 +85,8 @@ class Data {
     'phone' : phone,
     'gender' : gender,
     'email' : email,
-    'password' : password,
     'role' : role,
+    'image_url' : imageUrl,
     'is_active' : isActive,
     'created_by' : createdBy,
     'updated_by' : updatedBy,

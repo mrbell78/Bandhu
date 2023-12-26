@@ -221,12 +221,12 @@ class _LoginWithyoutRegState extends State<LoginWithyoutReg> {
                                 onTap:(){
                                   // addStringToSF(nameController.text.trim());
 
-
-                                  provider.postLogin(nameController.text.trim(),numberController.text.trim(),emailController.text.trim()).then((value) {
-
-                                    NavUtils.push(context, NavigationRoot());
-
-                                  });
+                                  //
+                                  // provider.postLogin(nameController.text.trim(),numberController.text.trim(),emailController.text.trim()).then((value) {
+                                  //
+                                  //   NavUtils.push(context, NavigationRoot());
+                                  //
+                                  // });
                                 },
                                 child: Container(
                                     height: 35,
@@ -241,54 +241,12 @@ class _LoginWithyoutRegState extends State<LoginWithyoutReg> {
 
                             SizedBox(width: 20,),
 
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  InkWell(
-                                    onTap:(){
 
-                                      NavUtils.push(context, LoginWithEmail());
-                                    },
-                                    child: Container(
-                                        height: 35,
-
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                                          color: AppColors.banDarkGreen,),
-                                        child:Center(child: Text("Sign Up",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),))
-
-                                    ),
-                                  ),
-                                  SizedBox(height: 8,),
-                                  Text("Don't Have Account ?",style: TextStyle(color: AppColors.banblack,fontSize: 10,fontWeight: FontWeight.w400),)
-                                ],
-                              ),
-                            ),
                           ],
                         ),
                       ),
 
 
-                      SizedBox(height: 15,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-
-                          Text("OR",style: TextStyle(color: AppColors.banblack,fontSize: 16,fontWeight: FontWeight.w600),),
-
-
-                        ],
-                      ),
-
-                      SizedBox(height: 20,),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Login",style: TextStyle(color: AppColors.banOrange,fontSize: 16,fontWeight: FontWeight.w600),),
-
-                        ],
-                      ),
 
                       // SizedBox(height: 15,),
                       // Row(

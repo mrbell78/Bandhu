@@ -4,6 +4,8 @@ import 'dart:io';
 
 
 
+import 'package:bondu/signup/model/login_response.dart';
+import 'package:bondu/signup/model/user_login_model.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,11 +17,18 @@ import 'api_response.dart';
 class HttpService {
   //late Dio _dio;
   var _dio;
-
-
+  UserLoginModel? custommerLogin;
+  getToken()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<String,dynamic> data =  jsonDecode(await prefs.getString('logininfo')!);
+    custommerLogin = UserLoginModel.fromJson(data);
+    print("customer login token ${custommerLogin?.data?.token}");
+  }
 
   Dio _getDio() {
+    getToken();
     if (_dio == null) {
+
       _dio = new Dio();
       _dio.interceptors.add(
         InterceptorsWrapper(
@@ -28,7 +37,7 @@ class HttpService {
             options.headers = {
 
               "Accept": "application/json",
-              //"Authorization": "Bearer  ${custommerLogin?.token}",
+              "Authorization": "Bearer ${custommerLogin?.data?.token}",
             };
 
             followRedirects:false;
@@ -51,25 +60,25 @@ class HttpService {
   Future<ApiResponse<Response>> getRequest(String route, {Map<String, String>? qp, String? token}) async {
 
 
-    _getDio().interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
-
-          options.headers = {
-            "Accept": "application/json",
-             "Authorization": "Bearer  $token",
-          };
-
-          return handler.next(options); //continue
-        },
-        onResponse: (Response response, ResponseInterceptorHandler handler) async {
-          return handler.next(response); // continue
-        },
-        onError: (DioError e, ErrorInterceptorHandler handler) async {
-          return handler.next(e); //continue
-        },
-      ),
-    );
+    // _getDio().interceptors.add(
+    //   InterceptorsWrapper(
+    //     onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
+    //
+    //       options.headers = {
+    //         "Accept": "application/json",
+    //          "Authorization": "Bearer $token",
+    //       };
+    //
+    //       return handler.next(options); //continue
+    //     },
+    //     onResponse: (Response response, ResponseInterceptorHandler handler) async {
+    //       return handler.next(response); // continue
+    //     },
+    //     onError: (DioError e, ErrorInterceptorHandler handler) async {
+    //       return handler.next(e); //continue
+    //     },
+    //   ),
+    // );
 
 
     try {
@@ -102,28 +111,28 @@ class HttpService {
      // _getDio().options.headers= {"Content-Type":"multipart/form-data","accept":"*/*",};
 
 
-    if(token!=null && token!=""){
-      print("token:  $token");
-      _getDio().interceptors.add(
-        InterceptorsWrapper(
-          onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
-
-            options.headers = {
-              "Accept": "application/json",
-              "Authorization": "Bearer $token"
-            };
-
-            return handler.next(options); //continue
-          },
-          onResponse: (Response response, ResponseInterceptorHandler handler) async {
-            return handler.next(response); // continue
-          },
-          onError: (DioError e, ErrorInterceptorHandler handler) async {
-            return handler.next(e); //continue
-          },
-        ),
-      );
-    }
+    // if(token!=null && token!=""){
+    //   print("token:  $token");
+    //   _getDio().interceptors.add(
+    //     InterceptorsWrapper(
+    //       onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
+    //
+    //         options.headers = {
+    //           "Accept": "application/json",
+    //           "Authorization": "Bearer $token"
+    //         };
+    //
+    //         return handler.next(options); //continue
+    //       },
+    //       onResponse: (Response response, ResponseInterceptorHandler handler) async {
+    //         return handler.next(response); // continue
+    //       },
+    //       onError: (DioError e, ErrorInterceptorHandler handler) async {
+    //         return handler.next(e); //continue
+    //       },
+    //     ),
+    //   );
+    // }
 
     try {
 
@@ -294,29 +303,6 @@ class HttpService {
 
   Future<ApiResponse<Response>> uploadImage(String route, FormData formData,{String ? token}) async {
     /*  _getDio().options.headers= {"Content-Type":"application/json","Authorization":"Token ${ApiConst.WORKSPACETOKEN_LIVE}"};*/
-
-
-    print("the token is .....inside dio....${token}");
-
-    _getDio().interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
-
-          options.headers = {
-            "Accept": "application/json",
-            "Authorization": "Bearer $token",
-          };
-
-          return handler.next(options); //continue
-        },
-        onResponse: (Response response, ResponseInterceptorHandler handler) async {
-          return handler.next(response); // continue
-        },
-        onError: (DioError e, ErrorInterceptorHandler handler) async {
-          return handler.next(e); //continue
-        },
-      ),
-    );
     try {
       Response response = await _getDio().post(
         route,
